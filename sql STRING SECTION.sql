@@ -107,3 +107,53 @@ SELECT CONCAT
         '...'
     ) AS 'short title'
 FROM books;
+
+SELECT SUBSTRING(REPLACE (title, 'e', '3'),1,10) AS 'weird string' FROM books;
+
+SELECT REVERSE (author_fname) FROM books;
+
+SELECT REPLACE(REVERSE (author_fname),'d','0') FROM books;
+
+SELECT author_lname, CHAR_LENGTH(author_lname) AS NO_OF_CHARS FROM books;
+
+SELECT CONCAT(author_fname, ' is ', CHAR_LENGTH(author_fname), ' characters long') FROM books;
+
+SELECT CONCAT(UPPER('My fav book is '), LOWER(title)) FROM books;
+
+#EXCERSISES
+
+SELECT UPPER(REVERSE('Why does my cat look at me with such hatred?'));
+
+#I_like_cats
+
+SELECT REPLACE(title, ' ', '->') AS title FROM books;
+
+SELECT
+	author_lname AS forwards,
+	REVERSE(author_lname) AS backwards
+FROM
+	books;
+
+SELECT 
+UPPER(CONCAT(author_fname, ' ', author_lname)) AS 'full name in caps' 
+FROM 
+books;
+
+SELECT
+	CONCAT(title, ' was released in ', released_year)
+	AS 'blurb'
+FROM
+	books; 
+
+SELECT 
+	title,
+	CHAR_LENGTH(title) AS 'character count'
+FROM
+	books;
+
+SELECT
+	CONCAT(SUBSTRING(title, 1, 10),'...') AS 'short title',
+	CONCAT(author_lname,',',author_fname) AS author,
+	CONCAT(stock_quantity,' in stock') AS quantity
+FROM
+	books;
