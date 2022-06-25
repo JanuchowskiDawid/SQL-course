@@ -20,21 +20,27 @@ LEFT JOIN photos
 	ON users.id = photos.user_id
 WHERE photos.user_id IS NULL;
 
-#We're running a new contest to see who can get the most likes on a single photo.	4
+#We're running a new contest to see who can get the most likes on a single photo.	4---------
 
-SELECT username, COUNT(likes.photo_id)
-FROM users
-JOIN likes 
-	ON users.id = likes.user_id
-GROUP BY likes.photo_id
-ORDER BY COUNT(likes.photo_id) DESC
+SELECT 
+    username,
+    photos.id,
+    photos.image_url, 
+    COUNT(*) AS total
+FROM photos
+INNER JOIN likes
+    ON likes.photo_id = photos.id
+INNER JOIN users
+    ON photos.user_id = users.id
+GROUP BY photos.id
+ORDER BY total DESC
 LIMIT 1;
 	
-#How many times does the average user post?	5
+#How many times does the average user post?	5-------
 
-SELECT COUNT(photos.id)/COUNT(users.id) AS 'POSTS PER USER'
-FROM users
-LEFT JOIN photos ON users.id = photos.user_id;
+SELECT (SELECT Count(*) 
+        FROM   photos) / (SELECT Count(*) 
+                          FROM   users) AS avg; 
 
 #What are the top 5 most commonly used hashtags?	6
 
@@ -48,6 +54,6 @@ LIMIT 5;
 #Find users who have liked every single photo on the site	7
 
 SELECT username FROM users
-JOIN likes ON user.id = likes.user_id
-GROUP BY user.id
-WHERE COUNT(likes.photo_id) = (SELECT COUNT(*) FROM photos);
+JOIN likes ON users.id = likes.user_id
+GROUP BY users.id
+HAVING COUNT(likes.photo_id) = (SELECT COUNT(*) FROM photos);
