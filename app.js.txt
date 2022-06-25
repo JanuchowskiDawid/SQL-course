@@ -1,0 +1,16 @@
+for(var i = 0; i<500; i++){
+console.log("This is some code");
+}
+////
+const { faker } = require('@faker-js/faker');
+
+for(var i = 0; i<500; i++){
+console.log(faker.internet.email());
+}
+////
+function generateAddress(){
+  console.log(faker.address.streetAddress());
+  console.log(faker.address.city());
+  console.log(faker.address.state());
+}
+generateAddress(); 
