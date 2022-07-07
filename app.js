@@ -1,8 +1,11 @@
 var express = require ('express');
 var app = express ();
 var mysql = require('mysql');
+var bodyPraser = require("body-parser");
+
 
 app.set("view engine", "ejs");
+app.use(bodyPraser.urlencoded({extended: true}));
 
 var connection = mysql.createConnection({
   host     : 'localhost',
