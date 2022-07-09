@@ -6,6 +6,7 @@ var bodyPraser = require("body-parser");
 
 app.set("view engine", "ejs");
 app.use(bodyPraser.urlencoded({extended: true}));
+app.use(express.static(__dirname + "/public"));
 
 var connection = mysql.createConnection({
   host     : 'localhost',
